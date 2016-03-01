@@ -13,12 +13,16 @@ public class DictatorUI : MonoBehaviour {
 	int l;
 	public string[] currentControls = new string[2]; 
 
-	public DictatorSpells dictatorSpells;
+	DictatorSpells dictatorSpells;
 
 
 	// Use this for initialization
 	void Start () 
 	{
+
+		GameObject dictator = GameObject.FindGameObjectWithTag ("Dictator");
+		dictatorSpells = dictator.GetComponent<DictatorSpells> ();
+
 		spriteRenderer = GetComponent<SpriteRenderer> ();
 
 		nextSpriteRenderer = nextSelected.GetComponent<SpriteRenderer> ();
@@ -29,8 +33,6 @@ public class DictatorUI : MonoBehaviour {
 
 		ChangeImage ();
 
-
-		print (currentControls [0] + currentControls [1]);
 	}
 	
 	// Update is called once per frame
@@ -59,7 +61,6 @@ public class DictatorUI : MonoBehaviour {
 			ChangeImage();
 		}
 
-		print (currentControls [0] + currentControls [1]);
 	
 	}
 

@@ -15,7 +15,7 @@ public class DictatorMovement : MonoBehaviour {
 		DictatorSpells dictatorSpells = GetComponent<DictatorSpells> ();
 		dictatorSpells.fire = currentControls [3];
 		GameObject userInterface = GameObject.FindGameObjectWithTag ("UI");
-		DictatorUI dictatorUI = GetComponent<DictatorUI> ();
+		DictatorUI dictatorUI = userInterface.GetComponent<DictatorUI> ();
 		dictatorUI.currentControls [0] = currentControls [4];
 		dictatorUI.currentControls [1] = currentControls [5];
 

@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour {
 
 
 
-		if(!grounded && rigidbody2D.velocity.y < 0.05) 
+		if(!grounded && rigidbody2D.velocity.y == 0) 
 		{
 			grounded = true;
 			doubleJump = true;

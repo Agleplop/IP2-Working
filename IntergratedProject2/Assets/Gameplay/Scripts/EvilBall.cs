@@ -16,16 +16,16 @@ public class EvilBall : MonoBehaviour {
 		switch (random)
 		{
 		case 0:
-			transform.position = new Vector3 (-12, Random.Range(-4, 10), -1);
+			transform.position = new Vector3 (-25, Random.Range(-14, 14), -1);
 			break;
 		case 1:
-			transform.position = new Vector3 ( Random.Range(-12, 12), 10, -1);
+			transform.position = new Vector3 ( Random.Range(-25, 25), 14, -1);
 			break;
 		case 2:
-			transform.position = new Vector3 (12, Random.Range(-4, 10), -1);
+			transform.position = new Vector3 (25, Random.Range(-14, 14), -1);
 			break;
 		case 3:
-			transform.position = new Vector3 ( Random.Range(-12, 12),-4, -1);
+			transform.position = new Vector3 ( Random.Range(-25, 25),-14, -1);
 			break;
 
 		default:

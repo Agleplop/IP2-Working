@@ -49,6 +49,7 @@
      <Compile Include="Assets\Gameplay\Scripts\DictatorMovement.cs" />
      <Compile Include="Assets\Gameplay\Scripts\DictatorSpells.cs" />
      <Compile Include="Assets\Gameplay\Scripts\DictatorUI.cs" />
+     <Compile Include="Assets\Gameplay\Scripts\DoorScript.cs" />
      <Compile Include="Assets\Gameplay\Scripts\DragonScript.cs" />
      <Compile Include="Assets\Gameplay\Scripts\EvilBall.cs" />
      <Compile Include="Assets\Gameplay\Scripts\GameController.cs" />
