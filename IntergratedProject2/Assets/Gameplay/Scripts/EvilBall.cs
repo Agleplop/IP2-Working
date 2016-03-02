@@ -53,4 +53,44 @@ public class EvilBall : MonoBehaviour {
 	{
 		target = t;
 	}
+
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.gameObject.tag == "Player")
+		{
+			PlayerMovement playerMovement = other.gameObject.GetComponent<PlayerMovement> ();
+			playerMovement.Die();
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

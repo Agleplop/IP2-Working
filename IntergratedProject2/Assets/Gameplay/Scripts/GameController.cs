@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameController : MonoBehaviour {
 
@@ -10,8 +11,9 @@ public class GameController : MonoBehaviour {
 	int currentPlayer = 0;
 
 	bool countdown = false;
-	public float timer = 10.0f;
+	public float timer = 1.0f;
 	string[] playerCondition = new string[4];
+	GameObject firstPlayer;
 
 	// Use this for initialization
 	void Start () 
@@ -19,6 +21,8 @@ public class GameController : MonoBehaviour {
 		DontDestroyOnLoad (this);
 
 		playerCondition[currentDictator] = "Dictator";
+
+		firstPlayer = null;
 
 		controls [0, 0] = "HorizontalPlayer1";
 		controls [0, 1] = "VerticalPlayer1";
@@ -53,9 +57,9 @@ public class GameController : MonoBehaviour {
 		currentPlayer++;
 		CreatePlayer2 ();
 		currentPlayer++;
-		CreatePlayer3 ();
+		//CreatePlayer3 ();
 		currentPlayer++;
-		CreatePlayer4 ();
+		//CreatePlayer4 ();
 
 	}
 	
@@ -68,15 +72,7 @@ public class GameController : MonoBehaviour {
 			if (timer < 0)
 			{
 
-				for (int i = 0; i < 4; i++)
-				{
-					if(playerCondition[i] != "Finished")
-					{
-						playerCondition[i] = "Dead";
-						print ("Player" + i + " is dead");
-					}
-				}
-
+				RoomComplete ();
 			}
 
 		}
@@ -142,7 +138,8 @@ public class GameController : MonoBehaviour {
 		Rigidbody2D rb2D = player2.GetComponent<Rigidbody2D> ();
 		PolygonCollider2D poly2D = player2.GetComponent<PolygonCollider2D> ();
 		
-		if (currentPlayer == currentDictator) {
+		if (currentPlayer == currentDictator) 
+		{
 
 			player2.tag = "Dictator";
 			sp.sprite = sprites [1];
@@ -150,11 +147,14 @@ public class GameController : MonoBehaviour {
 			rb2D.gravityScale = 0;
 			poly2D.enabled = false;
 			
-			for (int i = 0; i < 6; i++) {
+			for (int i = 0; i < 6; i++) 
+			{
 				dictatorMovement.currentControls [i] = controls [currentPlayer, i];
 			}
 			
-		} else {
+		} 
+		else 
+		{
 			player2.tag = "Player";
 			sp.sprite = sprites [0];
 			dictatorMovement.enabled = false;
@@ -162,7 +162,8 @@ public class GameController : MonoBehaviour {
 
 			playerCondition [1] = "Playing";
 
-			for (int i = 0; i < 6; i++) {
+			for (int i = 0; i < 6; i++) 
+			{
 				playerMovement.currentControls [i] = controls [currentPlayer, i];
 			}
 
@@ -265,11 +266,9 @@ public class GameController : MonoBehaviour {
 
 	public void ReachedDoor(GameObject finishedPlayer)
 	{
-		countdown = true;
 		if (finishedPlayer.name == "Player1")
 		{
 			playerCondition[0] = "Finished";
-			print ("hello");
 		}
 		else if (finishedPlayer.name == "Player2")
 		{
@@ -278,16 +277,82 @@ public class GameController : MonoBehaviour {
 		else if (finishedPlayer.name == "Player3")
 		{
 			playerCondition[2] = "Finished";
+
 		}
 		else if (finishedPlayer.name == "Player4")
 		{
 			playerCondition[3] = "Finished";
 		}
 
+
+		if(countdown == false)
+		{
+			firstPlayer = finishedPlayer;
+		}
+
+		countdown = true;
+
+		if (firstPlayer.name == "Player1")
+		{
+			currentDictator = 0;
+			print ("hello");
+		}
+		else if (firstPlayer.name == "Player2")
+		{
+			currentDictator = 1;
+		}
+		else if (firstPlayer.name == "Player3")
+		{
+			currentDictator = 2;
+		}
+		else if (firstPlayer.name == "Player4")
+		{
+			currentDictator = 3;
+		}
+
 		Destroy (finishedPlayer);
 	}
 
+	void RoomComplete()
+	{
+		
+		for (int i = 0; i < 4; i++)
+		{
+			if(playerCondition[i] != "Finished")
+			{
+				playerCondition[i] = "Dead";
+			}
 
+		}
+
+		GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
+		foreach(GameObject deletedPlayer in players)
+		{
+			Destroy(deletedPlayer);
+		}
+
+		GameObject dictator = GameObject.FindGameObjectWithTag ("Dictator");
+
+		Destroy (dictator);
+
+		RestartGame ();
+
+	}
+
+	void RestartGame()
+	{
+		countdown = false;
+		playerCondition[currentDictator] = "Dictator";
+		firstPlayer = null;
+		currentPlayer = 0;
+
+		CreatePlayer1 ();
+		currentPlayer++;
+		CreatePlayer2 ();
+		currentPlayer++;
+		timer = 1.0f;
+	}
+	
 }
 
 

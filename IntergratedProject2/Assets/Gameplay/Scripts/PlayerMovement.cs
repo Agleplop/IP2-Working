@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	public string[] currentControls = new string[6];
 
+	public Vector3 spawnPoint;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -105,6 +107,11 @@ public class PlayerMovement : MonoBehaviour {
 					rigidbody2D.AddForce(transform.right * -acceleration);
 
 
+	}
+
+	public void Die()
+	{
+		transform.position = new Vector3 (spawnPoint.x, spawnPoint.y, spawnPoint.z);
 	}
 	
 }
