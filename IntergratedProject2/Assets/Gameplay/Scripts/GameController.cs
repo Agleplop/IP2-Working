@@ -57,9 +57,9 @@ public class GameController : MonoBehaviour {
 		currentPlayer++;
 		CreatePlayer2 ();
 		currentPlayer++;
-		//CreatePlayer3 ();
+		CreatePlayer3 ();
 		currentPlayer++;
-		//CreatePlayer4 ();
+		CreatePlayer4 ();
 
 	}
 	
@@ -83,6 +83,7 @@ public class GameController : MonoBehaviour {
 	{
 		GameObject player1 = Instantiate (player, transform.position, Quaternion.identity) as GameObject;
 		player1.name = "Player1";
+		player1.layer = 8;
 
 		SpriteRenderer sp = player1.GetComponent<SpriteRenderer> ();
 		PlayerMovement playerMovement = player1.GetComponent<PlayerMovement> ();
@@ -130,6 +131,7 @@ public class GameController : MonoBehaviour {
 	{
 		GameObject player2 = Instantiate (player, transform.position, Quaternion.identity) as GameObject;
 		player2.name = "Player2";
+		player2.layer = 9;
 
 		SpriteRenderer sp = player2.GetComponent<SpriteRenderer> ();
 		PlayerMovement playerMovement = player2.GetComponent<PlayerMovement> ();
@@ -176,6 +178,8 @@ public class GameController : MonoBehaviour {
 	{
 		GameObject player3 = Instantiate (player, transform.position, Quaternion.identity) as GameObject;
 		player3.name = "Player3";
+		player3.layer = 10;
+
 		
 		SpriteRenderer sp = player3.GetComponent<SpriteRenderer> ();
 		PlayerMovement playerMovement = player3.GetComponent<PlayerMovement> ();
@@ -222,6 +226,7 @@ public class GameController : MonoBehaviour {
 	{
 		GameObject player4= Instantiate (player, transform.position, Quaternion.identity) as GameObject;
 		player4.name = "Player4";
+		player4.layer = 11;
 		
 		SpriteRenderer sp = player4.GetComponent<SpriteRenderer> ();
 		PlayerMovement playerMovement = player4.GetComponent<PlayerMovement> ();
@@ -350,6 +355,10 @@ public class GameController : MonoBehaviour {
 		currentPlayer++;
 		CreatePlayer2 ();
 		currentPlayer++;
+		CreatePlayer3 ();
+		currentPlayer++;
+		CreatePlayer4 ();
+
 		timer = 1.0f;
 	}
 	
