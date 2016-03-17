@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class GameController : MonoBehaviour {
 
 	public string[,] controls = new string[4,6] ;
-	public int currentDictator = 1;
+	public int currentDictator;
 	public GameObject player;
 	public Sprite[] sprites;
 	int currentPlayer = 0;
@@ -15,9 +15,19 @@ public class GameController : MonoBehaviour {
 	string[] playerCondition = new string[4];
 	GameObject firstPlayer;
 
+	public DictatorUI dictatorUI;
+
+	IEnumerator FindNewDictator()
+	{
+		yield return new WaitForSeconds (0.05f);
+		dictatorUI.ResetDictator();
+	}
+
 	// Use this for initialization
 	void Start () 
 	{
+		currentDictator = Random.Range (0, 4);
+
 		DontDestroyOnLoad (this);
 
 		playerCondition[currentDictator] = "Dictator";
@@ -360,6 +370,8 @@ public class GameController : MonoBehaviour {
 		CreatePlayer4 ();
 
 		timer = 1.0f;
+
+		StartCoroutine (FindNewDictator ());
 	}
 	
 }

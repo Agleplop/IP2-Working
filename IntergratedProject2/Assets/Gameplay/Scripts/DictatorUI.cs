@@ -19,9 +19,7 @@ public class DictatorUI : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-
-		GameObject dictator = GameObject.FindGameObjectWithTag ("Dictator");
-		dictatorSpells = dictator.GetComponent<DictatorSpells> ();
+		ResetDictator ();
 
 		spriteRenderer = GetComponent<SpriteRenderer> ();
 
@@ -81,6 +79,13 @@ public class DictatorUI : MonoBehaviour {
 		dictatorSpells.CurrentSpellChanged (currentSelected);
 	}
 
+	public void ResetDictator()
+	{
+		dictatorSpells = null;
+		GameObject dictator = GameObject.FindGameObjectWithTag ("Dictator");
+		dictatorSpells = dictator.GetComponent<DictatorSpells> ();
+		print (dictator);
+	}
 
 	
 }
