@@ -111,7 +111,12 @@ public class PlayerMovement : MonoBehaviour {
 
 	public void Die()
 	{
+		GameObject controller = GameObject.FindGameObjectWithTag ("GameController");
+		GameController gc = controller.GetComponent<GameController> ();
+		gc.PlayerDied ();
+
 		transform.position = new Vector3 (spawnPoint.x, spawnPoint.y, spawnPoint.z);
+
 	}
 	
 }

@@ -77,6 +77,7 @@ public class DictatorUI : MonoBehaviour {
 		else
 			previousSpriteRenderer.sprite = currentSprite [l];
 		dictatorSpells.CurrentSpellChanged (currentSelected);
+
 	}
 
 	public void ResetDictator()
@@ -85,6 +86,7 @@ public class DictatorUI : MonoBehaviour {
 		GameObject dictator = GameObject.FindGameObjectWithTag ("Dictator");
 		dictatorSpells = dictator.GetComponent<DictatorSpells> ();
 		print (dictator);
+		dictatorSpells.CurrentSpellChanged (currentSelected);
 	}
 
 	

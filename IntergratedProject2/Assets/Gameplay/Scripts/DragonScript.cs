@@ -5,6 +5,7 @@ public class DragonScript : MonoBehaviour {
 
 	Vector3 target;
 	public float speed;
+	Animator anim;
 
 	// Use this for initialization
 	void Start () 
@@ -15,6 +16,11 @@ public class DragonScript : MonoBehaviour {
 		transform.position = new Vector3 (26, targetY, targetZ);
 
 		target = new Vector3 (-26, targetY, targetZ);
+
+		anim = GetComponent<Animator> ();
+
+		anim.StartPlayback();
+
 	}
 	
 	// Update is called once per frame

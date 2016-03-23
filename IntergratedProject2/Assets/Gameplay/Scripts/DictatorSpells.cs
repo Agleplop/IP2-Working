@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DictatorSpells : MonoBehaviour {
+public class DictatorSpells : MonoBehaviour 
+{
 
 	int currentSpell = 0;
 	public GameObject[] spell;
 	public string fire;
 
-	float ballCooldown = 2.5f;
-	float dragonCooldown = 17.5f;
+	float ballCooldown = 2.0f;
+	float dragonCooldown = 10.0f;
 	float skeletonCooldown = 10.0f;
 
 	float maxBallCD;
@@ -18,6 +19,10 @@ public class DictatorSpells : MonoBehaviour {
 	bool ballCD = false;
 	bool dragonCD = false;
 	bool skeleCD = false;
+
+	bool onTrap = false;
+
+	GameObject currentTrap = null;
 
 
 	// Use this for initialization
@@ -47,12 +52,14 @@ public class DictatorSpells : MonoBehaviour {
 			case 2:
 				SummonEvilBall();
 				break;
+			
+			case 3:
+				UseTrap();
+				break;
 
 			default:
 				print("oops");
 				break;
-
-
 			}
 
 		}
@@ -135,6 +142,50 @@ public class DictatorSpells : MonoBehaviour {
 
 	}
 
+	void UseTrap()
+	{
+
+		GameObject[] traps = GameObject.FindGameObjectsWithTag ("Trap");
+		float d;
+		float e = 100.0f;
+		foreach(GameObject trap in traps)
+		{
+			d = Vector3.Distance(trap.transform.position, transform.position);
+			if (d < e)
+			{
+				e = d;
+				currentTrap = trap;
+
+			}
+
+		}
+
+		SpikeTrapScript sts = currentTrap.GetComponent<SpikeTrapScript> ();
+		sts.Activated();
+	}
+	
+//	void OnTriggerEnter2D(Collider2D other)
+//	{
+//
+//		if (other.tag == "Trap")
+//		{
+//			onTrap = true;
+//			currentTrap = other.gameObject;
+//		}
+//
+//	}
+
+//	void OnTriggerExit2D(Collider2D other)
+//	{
+//
+//		if (other.tag == "Trap")
+//		{
+//			onTrap = false;
+//			currentTrap = null;
+//		}
+//
+//	}
+	
 }
 
 

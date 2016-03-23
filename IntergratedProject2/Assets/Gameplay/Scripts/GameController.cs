@@ -17,6 +17,8 @@ public class GameController : MonoBehaviour {
 
 	public DictatorUI dictatorUI;
 
+	int killScore;
+	
 	IEnumerator FindNewDictator()
 	{
 		yield return new WaitForSeconds (0.05f);
@@ -26,7 +28,11 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		currentDictator = Random.Range (0, 4);
+		//currentDictator = Random.Range (0, 4);
+
+		currentDictator = 0;
+
+		killScore = 0;
 
 		DontDestroyOnLoad (this);
 
@@ -106,10 +112,10 @@ public class GameController : MonoBehaviour {
 		if (currentPlayer == currentDictator)
 		{
 			player1.tag = "Dictator";
-			sp.sprite = sprites [1];
+			sp.sprite = sprites [0];
 			playerMovement.enabled = false;
 			rb2D.gravityScale = 0;
-			poly2D.enabled = false;
+			poly2D.isTrigger = true;
 
 			for (int i = 0; i < 6; i++)
 			{
@@ -123,7 +129,7 @@ public class GameController : MonoBehaviour {
 		else
 		{
 			player1.tag = "Player";
-			sp.sprite = sprites [0];
+			sp.sprite = sprites [1];
 			dictatorMovement.enabled = false;
 			dictatorSpells.enabled = false;
 
@@ -154,10 +160,10 @@ public class GameController : MonoBehaviour {
 		{
 
 			player2.tag = "Dictator";
-			sp.sprite = sprites [1];
+			sp.sprite = sprites [0];
 			playerMovement.enabled = false;
 			rb2D.gravityScale = 0;
-			poly2D.enabled = false;
+			poly2D.isTrigger = true;
 			
 			for (int i = 0; i < 6; i++) 
 			{
@@ -168,7 +174,7 @@ public class GameController : MonoBehaviour {
 		else 
 		{
 			player2.tag = "Player";
-			sp.sprite = sprites [0];
+			sp.sprite = sprites [2];
 			dictatorMovement.enabled = false;
 			dictatorSpells.enabled = false;
 
@@ -202,10 +208,10 @@ public class GameController : MonoBehaviour {
 		{
 			
 			player3.tag = "Dictator";
-			sp.sprite = sprites [1];
+			sp.sprite = sprites [0];
 			playerMovement.enabled = false;
 			rb2D.gravityScale = 0;
-			poly2D.enabled = false;
+			poly2D.isTrigger = true;
 			
 			for (int i = 0; i < 6; i++)
 			{
@@ -217,7 +223,7 @@ public class GameController : MonoBehaviour {
 		else
 		{
 			player3.tag = "Player";
-			sp.sprite = sprites [0];
+			sp.sprite = sprites [3];
 			dictatorMovement.enabled = false;
 			dictatorSpells.enabled = false;
 			
@@ -249,10 +255,10 @@ public class GameController : MonoBehaviour {
 		{
 			
 			player4.tag = "Dictator";
-			sp.sprite = sprites [1];
+			sp.sprite = sprites [0];
 			playerMovement.enabled = false;
 			rb2D.gravityScale = 0;
-			poly2D.enabled = false;
+			poly2D.isTrigger = true;
 			
 			for (int i = 0; i < 6; i++)
 			{
@@ -264,7 +270,7 @@ public class GameController : MonoBehaviour {
 		else
 		{
 			player4.tag = "Player";
-			sp.sprite = sprites [0];
+			sp.sprite = sprites [4];
 			dictatorMovement.enabled = false;
 			dictatorSpells.enabled = false;
 			
@@ -278,6 +284,8 @@ public class GameController : MonoBehaviour {
 		}
 		
 	}
+
+
 
 	public void ReachedDoor(GameObject finishedPlayer)
 	{
@@ -310,7 +318,6 @@ public class GameController : MonoBehaviour {
 		if (firstPlayer.name == "Player1")
 		{
 			currentDictator = 0;
-			print ("hello");
 		}
 		else if (firstPlayer.name == "Player2")
 		{
@@ -327,6 +334,8 @@ public class GameController : MonoBehaviour {
 
 		Destroy (finishedPlayer);
 	}
+
+
 
 	void RoomComplete()
 	{
@@ -356,6 +365,8 @@ public class GameController : MonoBehaviour {
 
 	void RestartGame()
 	{
+		killScore = 0;
+
 		countdown = false;
 		playerCondition[currentDictator] = "Dictator";
 		firstPlayer = null;
@@ -373,8 +384,32 @@ public class GameController : MonoBehaviour {
 
 		StartCoroutine (FindNewDictator ());
 	}
+
+
+
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.gameObject.tag == "Player")
+		{
+			PlayerMovement playerMovement = other.gameObject.GetComponent<PlayerMovement> ();
+			playerMovement.Die();
+		}
+
+	}
+
+	public void PlayerDied ()
+	{
+		killScore++;
+		if (killScore >= 30)
+		{
+			RestartGame();
+		}
+
+	}
 	
+
 }
+
 
 
 
