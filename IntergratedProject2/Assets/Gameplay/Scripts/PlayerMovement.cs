@@ -27,6 +27,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	public Vector3 spawnPoint;
 
+	public GameObject[] gore = new GameObject[7];	
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -63,11 +65,21 @@ public class PlayerMovement : MonoBehaviour {
 
 		if (inputValueX > 0) 
 		{
+			if(direction == "Left")
+			{
+				transform.localScale = new Vector3(1, 1, 1);
+			}
+
 			direction = "Right";
 			walking = true;
 		}
 		else if (inputValueX < 0)
 		{
+			if(direction == "Right")
+			{
+				transform.localScale = new Vector3(-1, 1, 1);
+			}
+
 			direction = "Left";
 			walking = true;
 		}
@@ -111,6 +123,15 @@ public class PlayerMovement : MonoBehaviour {
 
 	public void Die()
 	{
+		Instantiate (gore[0], transform.position, Quaternion.identity);
+		Instantiate (gore[1], transform.position, Quaternion.identity);
+		Instantiate (gore[3], transform.position, Quaternion.identity);
+
+		for (int i = 0; i < Random.Range(10, 31); i++)
+		{
+			Instantiate (gore[Random.Range(3, 7)], transform.position, Quaternion.identity);
+		}
+
 		GameObject controller = GameObject.FindGameObjectWithTag ("GameController");
 		GameController gc = controller.GetComponent<GameController> ();
 		gc.PlayerDied ();

@@ -48,20 +48,20 @@ TextureImporter:
     - name: Blue Walk Cycle_0
       rect:
         serializedVersion: 2
-        x: 2
+        x: 0
         y: 0
-        width: 95
-        height: 120
+        width: 174
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: Blue Walk Cycle_1
       rect:
         serializedVersion: 2
-        x: 118
+        x: 174
         y: 0
-        width: 97
-        height: 111
+        width: 174
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

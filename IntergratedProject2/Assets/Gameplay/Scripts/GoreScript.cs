@@ -6,7 +6,6 @@ public class GoreScript : MonoBehaviour {
 	float randomX;
 	float randomY;
 	public float range;
-	public Sprite[] currentSprite;
 	
 	IEnumerator Expire()
 	{
@@ -18,14 +17,8 @@ public class GoreScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		
-		int s = Random.Range (0, currentSprite.Length - 1);
-		SpriteRenderer sr = GetComponent<SpriteRenderer> ();
-		sr.sprite = currentSprite [s];
-		
-		
-		randomX = Random.Range (-range, range);
-		randomY = Random.Range (-range, range);
+		randomX = Random.Range (-range, range) + 50;
+		randomY = Random.Range (-range, range) + 50;
 		rigidbody2D.AddForce (transform.right * randomX);
 		rigidbody2D.AddForce (transform.up * randomY);
 		
@@ -35,6 +28,6 @@ public class GoreScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		
+
 	}
 }

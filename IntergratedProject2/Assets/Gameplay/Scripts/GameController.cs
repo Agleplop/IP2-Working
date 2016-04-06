@@ -18,12 +18,20 @@ public class GameController : MonoBehaviour {
 	public DictatorUI dictatorUI;
 
 	int killScore;
-	
+
+	public string[] levels = new string[4];
+	int currentLevel = 0;
+
+
+
 	IEnumerator FindNewDictator()
 	{
 		yield return new WaitForSeconds (0.05f);
+		GameObject dictatorInterface = GameObject.FindGameObjectWithTag ("UI");
+		dictatorUI = dictatorInterface.GetComponent<DictatorUI> ();
 		dictatorUI.ResetDictator();
 	}
+
 
 	// Use this for initialization
 	void Start () 
@@ -365,6 +373,9 @@ public class GameController : MonoBehaviour {
 
 	void RestartGame()
 	{
+		currentLevel++;
+		//Application.LoadLevel (levels [currentLevel]);
+
 		killScore = 0;
 
 		countdown = false;
