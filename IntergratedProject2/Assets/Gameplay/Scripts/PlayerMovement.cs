@@ -29,12 +29,16 @@ public class PlayerMovement : MonoBehaviour {
 
 	public GameObject[] gore = new GameObject[7];	
 
+	public AudioClip death;
+
 	// Use this for initialization
 	void Start () 
 	{
 		grounded = false;
 		hasJumped = false;
 		doubleJump = true;
+
+		spawnPoint = transform.position;
 	}
 	
 	// Update is called once per frame
@@ -123,6 +127,12 @@ public class PlayerMovement : MonoBehaviour {
 
 	public void Die()
 	{
+		AudioSource audio = GetComponent<AudioSource> ();
+
+
+
+		audio.PlayOneShot (death, 0.5f);
+
 		Instantiate (gore[0], transform.position, Quaternion.identity);
 		Instantiate (gore[1], transform.position, Quaternion.identity);
 		Instantiate (gore[3], transform.position, Quaternion.identity);

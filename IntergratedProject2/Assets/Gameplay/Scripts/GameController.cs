@@ -16,33 +16,31 @@ public class GameController : MonoBehaviour {
 	GameObject firstPlayer;
 
 	public DictatorUI dictatorUI;
+	public GameObject dictatorInterface;
 
 	int killScore;
 
 	public string[] levels = new string[4];
-	int currentLevel = 0;
-
-
-
-	IEnumerator FindNewDictator()
-	{
-		yield return new WaitForSeconds (0.05f);
-		GameObject dictatorInterface = GameObject.FindGameObjectWithTag ("UI");
-		dictatorUI = dictatorInterface.GetComponent<DictatorUI> ();
-		dictatorUI.ResetDictator();
-	}
-
+	
+	GameDataScript gds;
 
 	// Use this for initialization
 	void Start () 
 	{
-		//currentDictator = Random.Range (0, 4);
+		GameObject gameData = GameObject.Find ("GameData");
+		if(gameData == null)
+		{
+			gameData = new GameObject("GameData");
+			gameData.AddComponent <GameDataScript> ();
+			gameData.tag = "DataController";
+		}
 
-		currentDictator = 0;
+		GameObject dataController = GameObject.FindGameObjectWithTag ("DataController");
+		gds = dataController.GetComponent<GameDataScript> ();
+
+		currentDictator = gds.currentDictator;
 
 		killScore = 0;
-
-		DontDestroyOnLoad (this);
 
 		playerCondition[currentDictator] = "Dictator";
 
@@ -54,7 +52,6 @@ public class GameController : MonoBehaviour {
 		controls [0, 3] = "FirePlayer1";
 		controls [0, 4] = "NextPlayer1";
 		controls [0, 5] = "PreviousPlayer1";
-
 
 		controls [1, 0] = "HorizontalPlayer2";
 		controls [1, 1] = "VerticalPlayer2";
@@ -85,6 +82,8 @@ public class GameController : MonoBehaviour {
 		currentPlayer++;
 		CreatePlayer4 ();
 
+
+
 	}
 	
 	// Update is called once per frame
@@ -114,16 +113,18 @@ public class GameController : MonoBehaviour {
 		DictatorMovement dictatorMovement = player1.GetComponent<DictatorMovement> ();
 		DictatorSpells dictatorSpells = player1.GetComponent<DictatorSpells> ();
 		Rigidbody2D rb2D = player1.GetComponent<Rigidbody2D> ();
-		PolygonCollider2D poly2D = player1.GetComponent<PolygonCollider2D> ();
+		BoxCollider2D box2D = player1.GetComponent<BoxCollider2D> ();
 
 		//if the player is the dictator
 		if (currentPlayer == currentDictator)
 		{
+			dictatorUI.dictator = player1;
+
 			player1.tag = "Dictator";
 			sp.sprite = sprites [0];
 			playerMovement.enabled = false;
 			rb2D.gravityScale = 0;
-			poly2D.isTrigger = true;
+			box2D.isTrigger = true;
 
 			for (int i = 0; i < 6; i++)
 			{
@@ -162,16 +163,18 @@ public class GameController : MonoBehaviour {
 		DictatorMovement dictatorMovement = player2.GetComponent<DictatorMovement> ();
 		DictatorSpells dictatorSpells = player2.GetComponent<DictatorSpells> ();
 		Rigidbody2D rb2D = player2.GetComponent<Rigidbody2D> ();
-		PolygonCollider2D poly2D = player2.GetComponent<PolygonCollider2D> ();
+		BoxCollider2D box2D = player2.GetComponent<BoxCollider2D> ();
 		
 		if (currentPlayer == currentDictator) 
 		{
+
+			dictatorUI.dictator = player2;
 
 			player2.tag = "Dictator";
 			sp.sprite = sprites [0];
 			playerMovement.enabled = false;
 			rb2D.gravityScale = 0;
-			poly2D.isTrigger = true;
+			box2D.isTrigger = true;
 			
 			for (int i = 0; i < 6; i++) 
 			{
@@ -210,16 +213,18 @@ public class GameController : MonoBehaviour {
 		DictatorMovement dictatorMovement = player3.GetComponent<DictatorMovement> ();
 		DictatorSpells dictatorSpells = player3.GetComponent<DictatorSpells> ();
 		Rigidbody2D rb2D = player3.GetComponent<Rigidbody2D> ();
-		PolygonCollider2D poly2D = player3.GetComponent<PolygonCollider2D> ();
+		BoxCollider2D box2D = player3.GetComponent<BoxCollider2D> ();
 		
 		if (currentPlayer == currentDictator)
 		{
-			
+
+			dictatorUI.dictator = player3;
+
 			player3.tag = "Dictator";
 			sp.sprite = sprites [0];
 			playerMovement.enabled = false;
 			rb2D.gravityScale = 0;
-			poly2D.isTrigger = true;
+			box2D.isTrigger = true;
 			
 			for (int i = 0; i < 6; i++)
 			{
@@ -257,16 +262,18 @@ public class GameController : MonoBehaviour {
 		DictatorMovement dictatorMovement = player4.GetComponent<DictatorMovement> ();
 		DictatorSpells dictatorSpells = player4.GetComponent<DictatorSpells> ();
 		Rigidbody2D rb2D = player4.GetComponent<Rigidbody2D> ();
-		PolygonCollider2D poly2D = player4.GetComponent<PolygonCollider2D> ();
+		BoxCollider2D box2D = player4.GetComponent<BoxCollider2D> ();
 		
 		if (currentPlayer == currentDictator)
 		{
-			
+
+			dictatorUI.dictator = player4;
+
 			player4.tag = "Dictator";
 			sp.sprite = sprites [0];
 			playerMovement.enabled = false;
 			rb2D.gravityScale = 0;
-			poly2D.isTrigger = true;
+			box2D.isTrigger = true;
 			
 			for (int i = 0; i < 6; i++)
 			{
@@ -367,34 +374,49 @@ public class GameController : MonoBehaviour {
 
 		Destroy (dictator);
 
-		RestartGame ();
+		NextLevel ();
 
 	}
 
-	void RestartGame()
+	void NextLevel ()
 	{
-		currentLevel++;
-		//Application.LoadLevel (levels [currentLevel]);
+		gds.currentDictator = currentDictator;
 
-		killScore = 0;
+		if (gds.currentlevel < 3) 
+			gds.currentlevel++;
+		else
+			gds.currentlevel = 0;
 
-		countdown = false;
-		playerCondition[currentDictator] = "Dictator";
-		firstPlayer = null;
-		currentPlayer = 0;
 
-		CreatePlayer1 ();
-		currentPlayer++;
-		CreatePlayer2 ();
-		currentPlayer++;
-		CreatePlayer3 ();
-		currentPlayer++;
-		CreatePlayer4 ();
-
-		timer = 1.0f;
-
-		StartCoroutine (FindNewDictator ());
+		Application.LoadLevel (levels [gds.currentlevel]);
 	}
+
+//	void RestartGame()
+//	{
+//
+//
+//		GameObject dictatorInterface = GameObject.FindGameObjectWithTag ("UI");
+//		dictatorUI = dictatorInterface.GetComponent<DictatorUI> ();
+//		dictatorUI.ResetDictator();
+//
+//		killScore = 0;
+//
+//		countdown = false;
+//		playerCondition[currentDictator] = "Dictator";
+//		firstPlayer = null;
+//		currentPlayer = 0;
+//
+//		CreatePlayer1 ();
+//		currentPlayer++;
+//		CreatePlayer2 ();
+//		currentPlayer++;
+//		CreatePlayer3 ();
+//		currentPlayer++;
+//		CreatePlayer4 ();
+//
+//		timer = 1.0f;
+//
+//	}
 
 
 
@@ -413,11 +435,11 @@ public class GameController : MonoBehaviour {
 		killScore++;
 		if (killScore >= 30)
 		{
-			RestartGame();
+			//RestartGame();
 		}
 
 	}
-	
+
 
 }
 

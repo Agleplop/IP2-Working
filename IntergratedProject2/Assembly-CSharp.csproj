@@ -49,10 +49,12 @@
      <Compile Include="Assets\Gameplay\Scripts\DictatorMovement.cs" />
      <Compile Include="Assets\Gameplay\Scripts\DictatorSpells.cs" />
      <Compile Include="Assets\Gameplay\Scripts\DictatorUI.cs" />
+     <Compile Include="Assets\Gameplay\Scripts\DontDestroyScript.cs" />
      <Compile Include="Assets\Gameplay\Scripts\DoorScript.cs" />
      <Compile Include="Assets\Gameplay\Scripts\DragonScript.cs" />
      <Compile Include="Assets\Gameplay\Scripts\EvilBall.cs" />
      <Compile Include="Assets\Gameplay\Scripts\GameController.cs" />
+     <Compile Include="Assets\Gameplay\Scripts\GameDataScript.cs" />
      <Compile Include="Assets\Gameplay\Scripts\GoreScript.cs" />
      <Compile Include="Assets\Gameplay\Scripts\ParticleScript.cs" />
      <Compile Include="Assets\Gameplay\Scripts\PlayerMovement.cs" />

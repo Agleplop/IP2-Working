@@ -1,9 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Gameplay\Scripts\SkeletonScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Gameplay\Scripts\DictatorUI.cs">
     <Files>
-      <File FileName="Assets\Gameplay\Scripts\SkeletonScript.cs" Line="27" Column="4" />
-      <File FileName="Assets\Gameplay\Scripts\DragonScript.cs" Line="32" Column="4" />
+      <File FileName="Assets\Gameplay\Scripts\DictatorUI.cs" Line="26" Column="25" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

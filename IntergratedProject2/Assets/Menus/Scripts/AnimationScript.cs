@@ -3,8 +3,8 @@ using System.Collections;
 
 public class AnimationScript : MonoBehaviour 
 {
-	/*
-	public Animator anim;
+
+	public Animation anim;
 
 	// Use this for initialization
 	void Start () 
@@ -17,5 +17,5 @@ public class AnimationScript : MonoBehaviour
 	{
 	
 	}
-	*/
+
 }

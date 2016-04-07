@@ -14,12 +14,16 @@ public class DictatorUI : MonoBehaviour {
 	public string[] currentControls = new string[2]; 
 
 	DictatorSpells dictatorSpells;
+	public GameObject dictator;
 
+	
 
 	// Use this for initialization
 	void Start () 
 	{
-		ResetDictator ();
+		dictator = null;
+
+		dictatorSpells = null;
 
 		spriteRenderer = GetComponent<SpriteRenderer> ();
 
@@ -29,6 +33,8 @@ public class DictatorUI : MonoBehaviour {
 
 		l = currentSprite.Length - 1;
 
+		print (dictator);
+
 		ChangeImage ();
 
 	}
@@ -37,26 +43,34 @@ public class DictatorUI : MonoBehaviour {
 	void Update () 
 	{
 
-
-		if(Input.GetButtonDown(currentControls[1]))
+		if (dictatorSpells == null && dictator != null)
 		{
-			if(currentSelected < currentSprite.Length - 1)
-				currentSelected++;
-			else
-				currentSelected = 0;
-
-			ChangeImage();
-
+			dictatorSpells = dictator.GetComponent<DictatorSpells> ();
+			dictatorSpells.CurrentSpellChanged (currentSelected);
 		}
-
-		if(Input.GetButtonDown(currentControls[0]))
+		if (dictatorSpells != null) 
 		{
-			if(currentSelected == 0)
-				currentSelected = l;
-			else
-				currentSelected--;
+			if (Input.GetButtonDown (currentControls [1])) 
+			{
+				if (currentSelected < currentSprite.Length - 1)
+					currentSelected++;
+				else
+					currentSelected = 0;
 
-			ChangeImage();
+				ChangeImage ();
+
+			}
+
+			if (Input.GetButtonDown (currentControls [0])) 
+			{
+				if (currentSelected == 0)
+					currentSelected = l;
+				else
+					currentSelected--;
+
+				ChangeImage ();
+			}
+
 		}
 
 	
@@ -76,7 +90,11 @@ public class DictatorUI : MonoBehaviour {
 			previousSpriteRenderer.sprite = currentSprite [currentSelected - 1];
 		else
 			previousSpriteRenderer.sprite = currentSprite [l];
-		dictatorSpells.CurrentSpellChanged (currentSelected);
+
+		if (dictator != null && dictatorSpells != null) 
+		{
+			dictatorSpells.CurrentSpellChanged (currentSelected);
+		}
 
 	}
 
@@ -84,9 +102,8 @@ public class DictatorUI : MonoBehaviour {
 	{
 		dictatorSpells = null;
 		GameObject dictator = GameObject.FindGameObjectWithTag ("Dictator");
-		dictatorSpells = dictator.GetComponent<DictatorSpells> ();
-		print (dictator);
-		dictatorSpells.CurrentSpellChanged (currentSelected);
+
+
 	}
 
 	
